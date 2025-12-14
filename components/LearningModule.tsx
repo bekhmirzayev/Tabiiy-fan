@@ -30,7 +30,7 @@ export const LearningModule: React.FC<LearningModuleProps> = ({ easy, medium, ha
       <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-8">
         <button
           onClick={() => setActiveLevel('easy')}
-          className={`relative flex flex-col items-center justify-center p-4 rounded-2xl transition-all duration-300 border-b-4 ${activeLevel === 'easy' ? 'bg-level-easy text-white border-green-700 translate-y-1' : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 border-slate-200 dark:border-slate-700'}`}
+          className={`relative flex flex-col items-center justify-center p-4 rounded-2xl transition-all duration-300 border-b-4 shadow-sm ${activeLevel === 'easy' ? 'bg-level-easy text-white border-green-700 translate-y-1' : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 border-slate-200 dark:border-slate-700'}`}
         >
           <Bike className={`w-8 h-8 mb-2 ${activeLevel === 'easy' ? 'text-white' : 'text-slate-400 dark:text-slate-500'}`} />
           <span className="font-bold text-sm sm:text-base">1-Qadam (Sodda)</span>
@@ -38,7 +38,7 @@ export const LearningModule: React.FC<LearningModuleProps> = ({ easy, medium, ha
 
         <button
           onClick={() => setActiveLevel('medium')}
-          className={`relative flex flex-col items-center justify-center p-4 rounded-2xl transition-all duration-300 border-b-4 ${activeLevel === 'medium' ? 'bg-level-medium text-white border-sky-700 translate-y-1' : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 border-slate-200 dark:border-slate-700'}`}
+          className={`relative flex flex-col items-center justify-center p-4 rounded-2xl transition-all duration-300 border-b-4 shadow-sm ${activeLevel === 'medium' ? 'bg-level-medium text-white border-sky-700 translate-y-1' : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 border-slate-200 dark:border-slate-700'}`}
         >
           <Brain className={`w-8 h-8 mb-2 ${activeLevel === 'medium' ? 'text-white' : 'text-slate-400 dark:text-slate-500'}`} />
           <span className="font-bold text-sm sm:text-base">2-Qadam (O'rta)</span>
@@ -46,7 +46,7 @@ export const LearningModule: React.FC<LearningModuleProps> = ({ easy, medium, ha
 
         <button
           onClick={() => setActiveLevel('hard')}
-          className={`relative flex flex-col items-center justify-center p-4 rounded-2xl transition-all duration-300 border-b-4 ${activeLevel === 'hard' ? 'bg-level-hard text-white border-violet-700 translate-y-1' : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 border-slate-200 dark:border-slate-700'}`}
+          className={`relative flex flex-col items-center justify-center p-4 rounded-2xl transition-all duration-300 border-b-4 shadow-sm ${activeLevel === 'hard' ? 'bg-level-hard text-white border-violet-700 translate-y-1' : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 border-slate-200 dark:border-slate-700'}`}
         >
           <Trophy className={`w-8 h-8 mb-2 ${activeLevel === 'hard' ? 'text-white' : 'text-slate-400 dark:text-slate-500'}`} />
           <span className="font-bold text-sm sm:text-base">3-Qadam (Qiyin)</span>
@@ -54,7 +54,7 @@ export const LearningModule: React.FC<LearningModuleProps> = ({ easy, medium, ha
       </div>
 
       {/* Content Area */}
-      <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl overflow-hidden border border-slate-100 dark:border-slate-700 min-h-[400px] transition-all">
+      <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl dark:shadow-slate-900/50 overflow-hidden border border-slate-100 dark:border-slate-700 min-h-[400px] transition-all">
         <div className="p-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
           <div className="flex items-center gap-3 mb-6">
             <span className={`p-2 rounded-lg ${

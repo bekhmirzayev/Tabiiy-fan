@@ -101,7 +101,7 @@ export const Quiz: React.FC<QuizProps> = ({ questions, topicTitle }) => {
   const isSubmitted = status === 'submitted';
 
   return (
-    <section className="py-16 px-4 bg-white dark:bg-slate-800 transition-colors duration-300" id="quiz-section">
+    <section className="py-16 px-4 bg-white dark:bg-slate-950 transition-colors duration-300" id="quiz-section">
       <div className="max-w-3xl mx-auto">
         <div className="mb-10 text-center">
           <span className="text-blue-600 dark:text-blue-400 font-bold tracking-wider uppercase text-sm">Sinov</span>
@@ -112,8 +112,8 @@ export const Quiz: React.FC<QuizProps> = ({ questions, topicTitle }) => {
 
         {/* Success Card shown at top when submitted */}
         {isSubmitted && (
-          <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-3xl p-8 mb-10 text-center animate-in zoom-in duration-300">
-             <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 dark:bg-green-800 rounded-full text-green-600 dark:text-green-200 mb-4">
+          <div className="bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800 rounded-3xl p-8 mb-10 text-center animate-in zoom-in duration-300">
+             <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full text-green-600 dark:text-green-400 mb-4">
                <CheckCircle size={32} />
              </div>
              <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Barakalla, {formData.firstName}!</h3>
@@ -121,7 +121,7 @@ export const Quiz: React.FC<QuizProps> = ({ questions, topicTitle }) => {
                <span className={score === questions.length ? "text-green-600 dark:text-green-400" : score > questions.length / 2 ? "text-blue-600 dark:text-blue-400" : "text-orange-500"}>
                  {score}
                </span> 
-               <span className="text-2xl text-slate-400"> / {questions.length}</span>
+               <span className="text-2xl text-slate-400 dark:text-slate-500"> / {questions.length}</span>
              </div>
              <p className="text-slate-600 dark:text-slate-400 mt-2">Quyida xatolaringizni ko'rib chiqing.</p>
           </div>
@@ -129,7 +129,7 @@ export const Quiz: React.FC<QuizProps> = ({ questions, topicTitle }) => {
 
         <form onSubmit={submitToGoogleSheets} className="space-y-8">
           {/* Personal Info - Disable after submit */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-700">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
             <div>
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Ismingiz</label>
               <input
@@ -139,7 +139,7 @@ export const Quiz: React.FC<QuizProps> = ({ questions, topicTitle }) => {
                 onChange={handleInputChange}
                 required
                 disabled={status !== 'idle' && status !== 'error'}
-                className="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none disabled:opacity-70 disabled:bg-slate-100 dark:disabled:bg-slate-700"
+                className="w-full rounded-lg border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none disabled:opacity-70 disabled:bg-slate-100 dark:disabled:bg-slate-700 placeholder-slate-400"
                 placeholder="Ali"
               />
             </div>
@@ -152,7 +152,7 @@ export const Quiz: React.FC<QuizProps> = ({ questions, topicTitle }) => {
                 onChange={handleInputChange}
                 required
                 disabled={status !== 'idle' && status !== 'error'}
-                className="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none disabled:opacity-70 disabled:bg-slate-100 dark:disabled:bg-slate-700"
+                className="w-full rounded-lg border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none disabled:opacity-70 disabled:bg-slate-100 dark:disabled:bg-slate-700 placeholder-slate-400"
                 placeholder="Valiyev"
               />
             </div>
@@ -165,13 +165,13 @@ export const Quiz: React.FC<QuizProps> = ({ questions, topicTitle }) => {
               const userAnswer = answers[q.id];
               const isCorrectAnswer = userAnswer === q.correctAnswer;
               
-              let cardBorderClass = "border-slate-200 dark:border-slate-700";
+              let cardBorderClass = "border-slate-200 dark:border-slate-800";
               if (isSubmitted) {
-                cardBorderClass = isCorrectAnswer ? "border-green-500 bg-green-50/30 dark:bg-green-900/20" : "border-red-300 dark:border-red-800 bg-red-50/30 dark:bg-red-900/20";
+                cardBorderClass = isCorrectAnswer ? "border-green-500 bg-green-50/30 dark:bg-green-900/10" : "border-red-300 dark:border-red-800 bg-red-50/30 dark:bg-red-900/10";
               }
 
               return (
-                <div key={q.id} className={`border rounded-2xl p-6 transition-all bg-white dark:bg-slate-800 ${cardBorderClass} ${!isSubmitted && 'hover:shadow-md dark:hover:border-blue-500'}`}>
+                <div key={q.id} className={`border rounded-2xl p-6 transition-all bg-white dark:bg-slate-900 ${cardBorderClass} ${!isSubmitted && 'hover:shadow-md dark:hover:border-blue-500'}`}>
                   <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-4 flex items-start">
                     <span className="mr-2 text-blue-500 dark:text-blue-400 min-w-[24px]">{qIdx + 1}.</span> 
                     <span className="flex-1">{q.question}</span>
@@ -187,15 +187,15 @@ export const Quiz: React.FC<QuizProps> = ({ questions, topicTitle }) => {
                       const isSelected = answers[q.id] === oIdx;
                       const isActuallyCorrect = q.correctAnswer === oIdx;
                       
-                      let optionClass = "bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300"; 
+                      let optionClass = "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300"; 
                       
                       if (isSubmitted) {
                         if (isActuallyCorrect) {
-                          optionClass = "bg-green-100 dark:bg-green-900/40 border-green-500 text-green-800 dark:text-green-300 font-bold"; 
+                          optionClass = "bg-green-100 dark:bg-green-900/30 border-green-500 text-green-800 dark:text-green-300 font-bold"; 
                         } else if (isSelected && !isActuallyCorrect) {
-                          optionClass = "bg-red-100 dark:bg-red-900/40 border-red-500 text-red-800 dark:text-red-300";
+                          optionClass = "bg-red-100 dark:bg-red-900/30 border-red-500 text-red-800 dark:text-red-300";
                         } else {
-                          optionClass = "bg-slate-50 dark:bg-slate-800/50 border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500 opacity-70";
+                          optionClass = "bg-slate-50 dark:bg-slate-900/50 border-slate-100 dark:border-slate-800 text-slate-400 dark:text-slate-600 opacity-60";
                         }
                       } else if (isSelected) {
                          optionClass = "bg-blue-50 dark:bg-blue-900/30 border-blue-500 dark:border-blue-400 text-blue-700 dark:text-blue-300";
@@ -262,7 +262,7 @@ export const Quiz: React.FC<QuizProps> = ({ questions, topicTitle }) => {
             )}
 
             {!isSubmitted && (
-              <p className="text-center text-xs text-slate-400 mt-4 flex items-center justify-center gap-1">
+              <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-4 flex items-center justify-center gap-1">
                 <AlertCircle size={12} /> Natijalar o'qituvchiga yuboriladi
               </p>
             )}

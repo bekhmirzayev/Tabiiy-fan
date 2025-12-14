@@ -65,7 +65,6 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onBack }) =>
   };
 
   // PARSING REPORT STRING
-  // Format: "1. Question...: ✅ | 2. Question...: ❌ (Tanladi: Option)"
   const parseReport = (reportStr: string) => {
     if (!reportStr || reportStr === "N/A") return [];
     
@@ -75,7 +74,6 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onBack }) =>
       if (!trimmed) return null;
 
       const isCorrect = trimmed.includes('✅');
-      // Use first colon to separate
       const colonIndex = trimmed.indexOf(':');
       
       let questionText = `Savol ${idx + 1}`;
@@ -97,7 +95,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onBack }) =>
   // RENDER LOGIN SCREEN
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-100 dark:bg-slate-900 px-4">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 px-4">
         <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl max-w-md w-full border border-slate-200 dark:border-slate-700">
           <div className="text-center mb-6">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full mb-4">
@@ -111,7 +109,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onBack }) =>
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full text-center text-xl tracking-wider p-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full text-center text-xl tracking-wider p-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none placeholder-slate-400"
               placeholder="Parol..."
               autoFocus
             />
@@ -178,7 +176,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onBack }) =>
             </button>
             <button 
               onClick={onBack} 
-              className="px-4 py-2 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-300 transition-colors font-medium text-sm"
+              className="px-4 py-2 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors font-medium text-sm"
             >
               Bosh sahifa
             </button>
@@ -245,7 +243,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onBack }) =>
                   </tr>
                 ) : (
                   filteredResults.map((row, idx) => (
-                    <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                    <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
                       <td className="p-4 text-slate-500 dark:text-slate-400 text-sm whitespace-nowrap">
                         <div className="flex items-center gap-2">
                           <Calendar size={14} />
@@ -290,7 +288,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onBack }) =>
       {/* DETAILED VIEW MODAL */}
       {selectedResult && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-slate-200 dark:border-slate-800">
             <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-950">
               <div>
                 <h3 className="text-xl font-bold text-slate-800 dark:text-white">{selectedResult.studentName}</h3>
@@ -304,7 +302,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onBack }) =>
               </button>
             </div>
             
-            <div className="p-6 overflow-y-auto space-y-4">
+            <div className="p-6 overflow-y-auto space-y-4 bg-white dark:bg-slate-900">
               {(() => {
                 const report = selectedResult.detailedReport;
                 const parsed = parseReport(report);
@@ -317,14 +315,13 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onBack }) =>
                         <span className="text-lg shrink-0">{item.isCorrect ? '✅' : '❌'}</span>
                       </div>
                       {!item.isCorrect && (
-                        <div className="mt-2 text-sm text-red-600 dark:text-red-400 font-medium bg-white dark:bg-slate-900/50 p-2 rounded-lg border border-red-100 dark:border-red-900/30">
+                        <div className="mt-2 text-sm text-red-600 dark:text-red-400 font-medium bg-white dark:bg-slate-950/50 p-2 rounded-lg border border-red-100 dark:border-red-900/30">
                           {item.status.replace('❌', '').replace('(', '').replace(')', '').trim()}
                         </div>
                       )}
                     </div>
                   ));
                 } else if (report && report !== "N/A") {
-                  // Fallback for raw data if parsing failed but data exists
                   return (
                      <div className="text-center p-4 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
                         <p className="text-xs text-slate-400 mb-2">Qabul qilingan ma'lumot (parsing failed):</p>
@@ -332,7 +329,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onBack }) =>
                      </div>
                   );
                 } else {
-                  return <p className="text-center text-slate-500">Batafsil ma'lumot mavjud emas (Eski ma'lumot bo'lishi mumkin).</p>;
+                  return <p className="text-center text-slate-500">Batafsil ma'lumot mavjud emas.</p>;
                 }
               })()}
             </div>

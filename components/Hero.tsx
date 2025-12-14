@@ -15,7 +15,7 @@ export const Hero: React.FC<HeroProps> = ({ title, subtitle, imageUrl, badge }) 
   };
 
   return (
-    <div className="relative overflow-hidden bg-gradient-to-br from-yellow-50 to-orange-100 dark:from-slate-900 dark:to-slate-800 py-16 sm:py-24 transition-colors duration-300">
+    <div className="relative overflow-hidden bg-gradient-to-br from-yellow-50 via-orange-50 to-orange-100 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 border-b border-orange-100 dark:border-slate-800 py-16 sm:py-24 transition-colors duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-8 items-center">
           <div className="text-center lg:text-left">
@@ -32,7 +32,7 @@ export const Hero: React.FC<HeroProps> = ({ title, subtitle, imageUrl, badge }) 
             <div className="mt-8 flex justify-center lg:justify-start">
               <button
                 onClick={scrollToContent}
-                className="inline-flex items-center rounded-2xl bg-orange-500 hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700 px-8 py-4 text-lg font-bold text-white shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-orange-300 dark:focus:ring-orange-900"
+                className="inline-flex items-center rounded-2xl bg-orange-500 hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700 px-8 py-4 text-lg font-bold text-white shadow-lg shadow-orange-500/30 dark:shadow-orange-900/30 transition-all hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-orange-300 dark:focus:ring-orange-900"
               >
                 O'rganishni boshlash
                 <ChevronDown className="ml-3 h-5 w-5 animate-bounce" />
@@ -44,7 +44,7 @@ export const Hero: React.FC<HeroProps> = ({ title, subtitle, imageUrl, badge }) 
                <img
                 src={imageUrl}
                 alt="Topic Hero"
-                className="absolute inset-0 h-full w-full rounded-3xl object-cover shadow-2xl ring-8 ring-white/50 dark:ring-slate-700/50"
+                className="absolute inset-0 h-full w-full rounded-3xl object-cover shadow-2xl ring-8 ring-white/50 dark:ring-slate-800/50"
               />
               {/* Decorative Elements */}
               <div className="absolute -bottom-6 -left-6 bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-xl animate-bounce duration-1000 border border-slate-100 dark:border-slate-700">
