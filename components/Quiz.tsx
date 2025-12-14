@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Send, CheckCircle, AlertCircle, RefreshCw, Loader2, XCircle, Check } from 'lucide-react';
 import { QuizQuestion } from '../types';
 
-// Placeholder URL - User will replace this with their deployed script URL
-const GOOGLE_SCRIPT_URL: string = "https://script.google.com/macros/s/AKfycbx_rdLPcOx55hUQtcgwES2-J4QF5fifqBqVJXMRBOaYnauC-FLkxPE7hvMxo637ZakE/exec"; 
+// Safely access env var with the provided URL as fallback
+const GOOGLE_SCRIPT_URL = (import.meta.env && import.meta.env.VITE_GOOGLE_SCRIPT_URL) || "https://script.google.com/macros/s/AKfycbx_rdLPcOx55hUQtcgwES2-J4QF5fifqBqVJXMRBOaYnauC-FLkxPE7hvMxo637ZakE/exec";
 
 interface QuizProps {
   questions: QuizQuestion[];
@@ -36,6 +36,13 @@ export const Quiz: React.FC<QuizProps> = ({ questions, topicTitle }) => {
   const submitToGoogleSheets = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // SAFETY CHECK
+    if (!GOOGLE_SCRIPT_URL) {
+      console.error("CRITICAL: Google Script URL not found.");
+      alert("Tizim xatosi: Server manzili sozlanmagan.");
+      return;
+    }
+
     if (Object.keys(answers).length < questions.length || !formData.firstName || !formData.lastName) {
       alert("Iltimos, ism-familiyangizni kiriting va barcha savollarga javob bering!");
       return;
@@ -54,7 +61,6 @@ export const Quiz: React.FC<QuizProps> = ({ questions, topicTitle }) => {
       // Truncate question text for brevity in report
       const shortQ = q.question.length > 20 ? q.question.substring(0, 20) + "..." : q.question;
       
-      // Removed spaces around separator to be safer
       return `${idx + 1}. ${shortQ}: ${isCorrect ? '✅' : `❌ (Tanladi: ${userOptionText})`}`;
     });
 
@@ -66,19 +72,15 @@ export const Quiz: React.FC<QuizProps> = ({ questions, topicTitle }) => {
       topicTitle: topicTitle,
       score: calculatedScore,
       totalQuestions: questions.length,
-      detailedReport: reportParts.join('|') // Changed separator to just pipe
+      detailedReport: reportParts.join('|')
     };
 
     try {
-      if (GOOGLE_SCRIPT_URL.includes("YOUR_GOOGLE_APPS_SCRIPT")) {
-        console.warn("Google Script URL not set. Simulating success.");
-        await new Promise(resolve => setTimeout(resolve, 1500)); 
-      } else {
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          body: JSON.stringify(payload)
-        });
-      }
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify(payload)
+      });
+      
       setStatus('submitted');
       // Scroll to top to see results
       document.getElementById('quiz-section')?.scrollIntoView({ behavior: 'smooth' });
@@ -182,25 +184,20 @@ export const Quiz: React.FC<QuizProps> = ({ questions, topicTitle }) => {
                   
                   <div className="space-y-2">
                     {q.options.map((option, oIdx) => {
-                      // Detailed logic for option styling in Review Mode
                       const isSelected = answers[q.id] === oIdx;
                       const isActuallyCorrect = q.correctAnswer === oIdx;
                       
-                      let optionClass = "bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300"; // Default
+                      let optionClass = "bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300"; 
                       
                       if (isSubmitted) {
                         if (isActuallyCorrect) {
-                          // Always highlight the correct answer in Green
                           optionClass = "bg-green-100 dark:bg-green-900/40 border-green-500 text-green-800 dark:text-green-300 font-bold"; 
                         } else if (isSelected && !isActuallyCorrect) {
-                          // Highlight the wrong selection in Red
                           optionClass = "bg-red-100 dark:bg-red-900/40 border-red-500 text-red-800 dark:text-red-300";
                         } else {
-                          // Dim the rest
                           optionClass = "bg-slate-50 dark:bg-slate-800/50 border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500 opacity-70";
                         }
                       } else if (isSelected) {
-                         // Normal Selection State
                          optionClass = "bg-blue-50 dark:bg-blue-900/30 border-blue-500 dark:border-blue-400 text-blue-700 dark:text-blue-300";
                       }
 

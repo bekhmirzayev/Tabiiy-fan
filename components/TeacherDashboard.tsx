@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Lock, User, Eye, X, BarChart2, Calendar, Search, RefreshCw, LogOut, Loader2 } from 'lucide-react';
 
-// SAME URL as Quiz.tsx
-const GOOGLE_SCRIPT_URL: string = "https://script.google.com/macros/s/AKfycbx_rdLPcOx55hUQtcgwES2-J4QF5fifqBqVJXMRBOaYnauC-FLkxPE7hvMxo637ZakE/exec";
+// Safely access env var with the provided URL as fallback
+const GOOGLE_SCRIPT_URL = (import.meta.env && import.meta.env.VITE_GOOGLE_SCRIPT_URL) || "https://script.google.com/macros/s/AKfycbx_rdLPcOx55hUQtcgwES2-J4QF5fifqBqVJXMRBOaYnauC-FLkxPE7hvMxo637ZakE/exec";
 
 interface StudentResult {
   timestamp: string;
@@ -39,6 +39,13 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onBack }) =>
 
   // DATA FETCHING
   const fetchData = async () => {
+    // SAFETY CHECK
+    if (!GOOGLE_SCRIPT_URL) {
+      console.error("CRITICAL: Google Script URL not found.");
+      alert("Tizim xatosi: Server manzili sozlanmagan.");
+      return;
+    }
+
     setLoading(true);
     try {
       const response = await fetch(GOOGLE_SCRIPT_URL);
